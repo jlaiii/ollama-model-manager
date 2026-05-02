@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ollama Model Manager</title>
+  <style>
+    :root{--bg:#0d1117;--surface:#161b22;--text:#c9d1d9;--muted:#8b949e;--accent:#58a6ff;--accent2:#3fb950;--border:#30363d;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .container{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+    header{text-align:center;padding:3rem 0;border-bottom:1px solid var(--border);margin-bottom:2rem}
+    header h1{font-size:2.5rem;font-weight:800;margin-bottom:.5rem}
+    header p{color:var(--muted);font-size:1.1rem}
+    .badge{display:inline-block;background:var(--surface);border:1px solid var(--border);padding:.35rem .75rem;border-radius:999px;font-size:.85rem;color:var(--muted);margin:.25rem}
+    .badge.accent{color:var(--accent);border-color:var(--accent)}
+    .badge.accent2{color:var(--accent2);border-color:var(--accent2)}
+    section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+    section h2{font-size:1.3rem;margin-bottom:1rem;color:#f0f6fc}
+    pre{background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:1rem;overflow-x:auto;font-size:.9rem}
+    code{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;color:#ff7b72}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem}
+    .card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center}
+    .card h3{font-size:1rem;margin-bottom:.5rem;color:var(--accent)}
+    .card p{font-size:.85rem;color:var(--muted)}
+    footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:3rem;padding-bottom:2rem}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .cta{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent);color:#fff;padding:.75rem 1.25rem;border-radius:8px;font-weight:600;margin-top:1rem}
+    .cta:hover{background:#1f6feb;text-decoration:none}
+    ul{margin:.5rem 0 0 1.2rem}
+    li{margin:.35rem 0}
+    .cmd{color:#d2a8ff}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🦙 Ollama Model Manager</h1>
+      <p>Interactive Python helper for finding, downloading, and updating Ollama models.</p>
+      <div style="margin-top:1rem">
+        <span class="badge accent">Python 3.10+</span>
+        <span class="badge accent2">Standard Library Only</span>
+        <span class="badge">Open Source</span>
+      </div>
+      <a class="cta" href="https://github.com/jlaiii/ollama-model-manager">⭐ View on GitHub</a>
+    </header>
+
+    <section>
+      <h2>Quick Start</h2>
+      <p>Requires Python 3.10+ and Ollama installed.</p>
+      <pre><code class="cmd">git clone https://github.com/jlaiii/ollama-model-manager.git
+cd ollama-model-manager
+python ollama_model_manager.py</code></pre>
+    </section>
+
+    <section>
+      <h2>Features</h2>
+      <div class="grid">
+        <div class="card"><h3>🔍 Auto-Discover</h3><p>Detects installed models and skips duplicates</p></div>
+        <div class="card"><h3>🌐 Live Catalog</h3><p>Refreshes from ollama.com/library with offline fallback</p></div>
+        <div class="card"><h3>📦 Presets</h3><p>Recommended, small, coding, reasoning, embedding, vision</p></div>
+        <div class="card"><h3>🔄 Update</h3><p>Re-pull installed models to check for updates</p></div>
+        <div class="card"><h3>🧪 Dry Run</h3><p>Preview what would download before committing</p></div>
+        <div class="card"><h3>⚡ Zero Deps</h3><p>Uses only the Python standard library</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Usage Examples</h2>
+      <p><strong>Interactive picker</strong></p>
+      <pre><code>python ollama_model_manager.py</code></pre>
+      <p><strong>Preview recommended starter set</strong></p>
+      <pre><code>python ollama_model_manager.py --preset recommended --dry-run</code></pre>
+      <p><strong>Download recommended models</strong></p>
+      <pre><code>python ollama_model_manager.py --preset recommended</code></pre>
+      <p><strong>Download specific models</strong></p>
+      <pre><code>python ollama_model_manager.py --models llama3.2:3b qwen3:8b</code></pre>
+      <p><strong>Download entire catalog</strong></p>
+      <pre><code>python ollama_model_manager.py --all</code></pre>
+      <p><strong>Update installed models</strong></p>
+      <pre><code>python ollama_model_manager.py --update-installed</code></pre>
+    </section>
+
+    <section>
+      <h2>Available Presets</h2>
+      <ul>
+        <li><code>recommended</code> — practical starter set</li>
+        <li><code>small</code> — lightweight models</li>
+        <li><code>coding</code> — coding-focused models</li>
+        <li><code>reasoning</code> — reasoning-focused models</li>
+        <li><code>embedding</code> — embedding models</li>
+        <li><code>vision</code> — vision/multimodal models</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Useful Options</h2>
+      <pre><code>--all              Queue every model in the catalog
+--preset NAME      Use a preset (recommended, small, coding, etc.)
+--models ...       Queue explicit model names
+--update-installed Re-pull installed models to update them
+--dry-run          Show what would happen without downloading
+--offline          Skip online catalog refresh
+--online-limit N   Limit library families to inspect
+--force            Pull even if already installed
+--yes              Skip confirmation prompts</code></pre>
+    </section>
+
+    <footer>
+      Made by <a href="https://github.com/jlaiii">jlaiii</a> · <a href="https://github.com/jlaiii/ollama-model-manager">GitHub Repo</a>
+    </footer>
+  </div>
+</body>
+</html>
